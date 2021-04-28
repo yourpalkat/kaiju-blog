@@ -37,6 +37,7 @@ module.exports = {
         // This is useful in cases where you have multiple instances
         // of the plugin to be connected to different stacks.
         type_prefix: 'Contentstack', // (default)
+        downloadImages: true,
       },
     },
     {

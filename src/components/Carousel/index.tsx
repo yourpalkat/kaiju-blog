@@ -1,4 +1,6 @@
 import React from 'react';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { FormattedMessage } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 
 const CarouselSection = styled.section`
@@ -28,12 +30,18 @@ const ImageContainer = styled.div`
 const Carousel = ({ content }) => {
   return (
     <CarouselSection>
-      <h2>Featured Images</h2>
+      <h2><FormattedMessage id="image_gallery" /></h2>
       <ImageContainer>
-        {content.image.map((featuredImage) => 
-          <div key={featuredImage.id}>
-            <img src={featuredImage.url} alt={featuredImage.description} />
-          </div>
+        {content.image.map((featuredImage) => {
+          const imageSource = getImage(featuredImage.localAssset)
+          return (
+            <div key={featuredImage.id}>
+              <GatsbyImage
+                image={imageSource}
+                alt={featuredImage.description}
+              />
+            </div>
+          )}
         )}
       </ImageContainer>
     </CarouselSection>

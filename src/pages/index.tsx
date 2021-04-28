@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { useIntl } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
@@ -21,6 +22,7 @@ const HomePage = ({ data }) => {
   const intl = useIntl();
   const localizedContent = data.allContentstackHomepage.nodes
     .filter(node => intl.locale === node.locale.split('-ca')[0]);
+  const heroImageSource = getImage(localizedContent[0].hero_image.localAsset);
 
   return (
     <Layout>
@@ -30,7 +32,10 @@ const HomePage = ({ data }) => {
       />
       <Wrapper>
         <HeroImage>
-          <img src={localizedContent[0].hero_image.url} alt={localizedContent[0].hero_image.description} />
+          <GatsbyImage
+            image={heroImageSource}
+            alt={localizedContent[0].hero_image.description}
+          />
         </HeroImage>
         <h1>
           {localizedContent[0].title}
@@ -42,7 +47,7 @@ const HomePage = ({ data }) => {
           <Carousel content={localizedContent[0].modular_blocks[0].image_carousel} />
         }
         {localizedContent[0]?.modular_blocks[0]?.featured_monster && 
-          <Feature content={localizedContent[0].modular_blocks[0].featured_monster} />
+          <Feature content={localizedContent[0].modular_blocks[0].featured_monster.feature[0]} />
         }
       </Wrapper>
     </Layout>
@@ -63,15 +68,23 @@ export const data = graphql`
         }
         intro_text
         hero_image {
-          url
           description
+          localAsset {
+            childImageSharp {
+              gatsbyImageData(width: 1000, placeholder: BLURRED)
+            }
+          }
         }
         modular_blocks {
           image_carousel {
             image {
               id
-              url
               description
+              localAsset {
+                childImageSharp {
+                  gatsbyImageData(width: 1000, placeholder: BLURRED)
+                }
+              }
             }
           }
           featured_monster {
@@ -79,8 +92,12 @@ export const data = graphql`
               title
               url
               featured_image {
-                url
                 description
+                localAsset {
+                  childImageSharp {
+                    gatsbyImageData(width: 600, placeholder: BLURRED)
+                  }
+                }
               }
             }
           }

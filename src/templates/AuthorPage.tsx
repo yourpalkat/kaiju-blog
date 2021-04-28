@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { useIntl, FormattedMessage } from 'gatsby-plugin-intl';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../components/Layout';
@@ -10,6 +11,7 @@ const Author = ({ data }) => {
   const intl = useIntl();
   const content = data.allContentstackAuthor.nodes
     .filter(node => intl.locale === node.locale.split('-ca')[0])[0];
+  const imageSource = getImage(content.photo.localAsset);
 
   return (
     <Layout>
@@ -21,7 +23,10 @@ const Author = ({ data }) => {
         <h1><FormattedMessage id="author_profile"/></h1>
         <h2>{content?.title}</h2>
         <h3>{content?.job_title}</h3>
-        <img src={content?.photo?.url} alt={content?.photo?.description} />
+        <GatsbyImage
+          image={imageSource}
+          alt={content.photo.description}
+        />
         <ReactMarkdown>{content?.bio}</ReactMarkdown>
       </Wrapper>
     </Layout>
@@ -41,8 +46,12 @@ export const data = graphql`
         bio
         locale
         photo {
-          url
           description
+          localAsset {
+            childImageSharp {
+              gatsbyImageData(width: 300, placeholder: BLURRED)
+            }
+          }
         }
       }
     }

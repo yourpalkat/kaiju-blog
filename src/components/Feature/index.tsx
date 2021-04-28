@@ -1,5 +1,6 @@
-import { Link } from 'gatsby';
 import React from 'react';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { Link, FormattedMessage } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 
 const FeatureSection = styled.section`
@@ -20,19 +21,26 @@ const Flex = styled.div`
   }
 `;
 
-const Feature = ({ content }) => (
-  <FeatureSection>
-    <h2>Featured Monster:</h2>
-    <Flex>
-      <div className="imageContainer">
-        <img src={content.featured_image.url} alt={content.featured_image.description} />
-      </div>
-      <div>
-        <h3>{content.title}!</h3>
-        <p><Link to={`/monster${content.url}`}>Read more</Link></p>
-      </div>
-    </Flex>
-  </FeatureSection>
-);
+const Feature = ({ content }) => { 
+  const imageSource = getImage(content.featured_image.localAsset);
+
+  return (
+    <FeatureSection>
+      <h2><FormattedMessage id="featured_monster" /></h2>
+      <Flex>
+        <div className="imageContainer">
+          <GatsbyImage
+            image={imageSource}
+            alt={content.featured_image.description}
+          />
+        </div>
+        <div>
+          <h3>{content.title}!</h3>
+          <p><Link to={`/monster${content.url}`}>Read more</Link></p>
+        </div>
+      </Flex>
+    </FeatureSection>
+  );
+};
 
 export default Feature;

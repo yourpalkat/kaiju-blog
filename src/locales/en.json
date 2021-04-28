@@ -2,5 +2,7 @@
   "all_monsters": "All Monsters:", 
   "monster_rating": "Monster Rating: ",
   "posted_by": "Posted by: ",
-  "author_profile": "Author Profile"
+  "author_profile": "Author Profile",
+  "featured_monster": "Monster of the Month",
+  "image_gallery": "Image Gallery"
 }
