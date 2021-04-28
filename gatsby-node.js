@@ -9,24 +9,8 @@ exports.createPages = async ({
     query allpages {
       allContentstackBlogPost {
         nodes {
-          title
+          id
           url
-          type
-          seo {
-            page_title
-            page_description
-          }
-          author {
-            title
-            url
-          }
-          date_posted
-          description
-          rating
-          featured_image {
-            url
-            description
-          }
           locale
         }
       }
@@ -34,14 +18,7 @@ exports.createPages = async ({
         nodes {
           id
           url
-          title
-          job_title
-          bio
           locale
-          photo {
-            url
-            description
-          }
         }
       }
     }
@@ -49,20 +26,24 @@ exports.createPages = async ({
 
   result.data?.allContentstackBlogPost.nodes.forEach(node => {
     createPage({
-      path: node.locale === 'en-ca' ? `/monster${node.url}` : `/fr/monster${node.url}`,
+      path: `/monster${node.url}`,
       component: path.resolve(`./src/templates/MonsterPage.tsx`),
       context: {
-        data: node,
+        pageId: node.id,
+        url: node.url,
+        locale: node.locale
       },
     });
   });
 
   result.data?.allContentstackAuthor.nodes.forEach(node => {
     createPage({
-      path: node.locale === 'en-ca' ? `/author${node.url}` : `/fr/author${node.url}`,
+      path: `/author${node.url}`,
       component: path.resolve(`./src/templates/AuthorPage.tsx`),
       context: {
-        data: node,
+        pageId: node.id,
+        url: node.url,
+        locale: node.locale
       },
     });
   });

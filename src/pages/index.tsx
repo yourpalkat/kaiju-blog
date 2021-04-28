@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import { useIntl } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../components/Layout';
@@ -17,28 +18,31 @@ const HeroImage = styled.div`
 `;
 
 const HomePage = ({ data }) => {
-  const content = data.contentstackHomepage;
+  const intl = useIntl();
+  const localizedContent = data.allContentstackHomepage.nodes
+    .filter(node => intl.locale === node.locale.split('-ca')[0]);
+
   return (
     <Layout>
       <SEO
-        title={content.seo.page_title}
-        description={content.seo.page_description}
+        title={localizedContent[0].seo.page_title}
+        description={localizedContent[0].seo.page_description}
       />
       <Wrapper>
         <HeroImage>
-          <img src={content.hero_image.url} alt={content.hero_image.description} />
+          <img src={localizedContent[0].hero_image.url} alt={localizedContent[0].hero_image.description} />
         </HeroImage>
         <h1>
-          {content.title}
+          {localizedContent[0].title}
         </h1>
         <ReactMarkdown>
-          {content.intro_text}
+          {localizedContent[0].intro_text}
         </ReactMarkdown>
-        {content?.modular_blocks[0]?.image_carousel && 
-          <Carousel content={content.modular_blocks[0].image_carousel} />
+        {localizedContent[0]?.modular_blocks[0]?.image_carousel && 
+          <Carousel content={localizedContent[0].modular_blocks[0].image_carousel} />
         }
-        {content?.modular_blocks[0]?.featured_monster && 
-          <Feature content={content.modular_blocks[0].featured_monster} />
+        {localizedContent[0]?.modular_blocks[0]?.featured_monster && 
+          <Feature content={localizedContent[0].modular_blocks[0].featured_monster} />
         }
       </Wrapper>
     </Layout>
@@ -49,32 +53,35 @@ export default HomePage;
 
 export const data = graphql`
   query homepage {
-    contentstackHomepage {
-      title
-      seo {
-        page_title
-        page_description
-      }
-      intro_text
-      hero_image {
-        url
-        description
-      }
-      modular_blocks {
-        image_carousel {
-          image {
-            id
-            url
-            description
-          }
+    allContentstackHomepage {
+      nodes {
+        title
+        locale
+        seo {
+          page_title
+          page_description
         }
-        featured_monster {
-          feature {
-            title
-            url
-            featured_image {
+        intro_text
+        hero_image {
+          url
+          description
+        }
+        modular_blocks {
+          image_carousel {
+            image {
+              id
               url
               description
+            }
+          }
+          featured_monster {
+            feature {
+              title
+              url
+              featured_image {
+                url
+                description
+              }
             }
           }
         }

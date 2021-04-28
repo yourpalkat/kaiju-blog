@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { graphql } from 'gatsby';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'gatsby';
+import { Link, useIntl, FormattedMessage } from 'gatsby-plugin-intl';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { Wrapper } from '../components/UI';
 
-const Monster = ({ pageContext }) => {
-  const { data } = pageContext;
-  const datePosted = new Date(data.date_posted).toLocaleDateString('en-GB', { 
+const Monster = ({ data }) => {
+  const intl = useIntl();
+  const content = data.allContentstackBlogPost.nodes
+    .filter(node => intl.locale === node.locale.split('-ca')[0])[0];
+  const datePosted = new Date(content.date_posted).toLocaleDateString(intl.locale, { 
     weekday: 'long', 
     month: 'long', 
     year: 'numeric', 
@@ -16,20 +19,57 @@ const Monster = ({ pageContext }) => {
   return (
     <Layout>
       <SEO
-        title={data.seo.page_title}
-        description={data.seo.page_description}
+        title={content.seo.page_title}
+        description={content.seo.page_description}
       />
       <Wrapper>
         <h1>
-          {data.title}
+          {content.title}
         </h1>
-        <img src={data.featured_image.url} alt={data.featured_image.description} />
-        <p><strong>Monster rating: {data.rating} / 5</strong></p>
-        <ReactMarkdown>{data.description}</ReactMarkdown>
-        <p><small>Posted by <Link to={`/author${data.author[0].url}`}>{data.author[0].title}</Link> on {datePosted}</small></p>
+        <img src={content.featured_image.url} alt={content.featured_image.description} />
+        <p><strong><FormattedMessage id="monster_rating" /> {content.rating} / 5</strong></p>
+        <ReactMarkdown>{content.description}</ReactMarkdown>
+        <p>
+          <small>
+            <FormattedMessage id="posted_by" />
+            <Link to={`/author${content.author[0].url}`}>
+              {content.author[0].title}
+            </Link>{' '}
+            {intl.locale === 'en' ? ' on ' : ' sur '}
+            {datePosted}
+          </small>
+        </p>
       </Wrapper>
     </Layout>
   );
 }
 
 export default Monster;
+
+export const data = graphql`
+  query monsterInfo($url: String!) {
+    allContentstackBlogPost(filter: {url: {eq: $url}}) {
+      nodes {
+        title
+        url
+        type
+        seo {
+          page_title
+          page_description
+        }
+        author {
+          title
+          url
+        }
+        date_posted
+        description
+        rating
+        featured_image {
+          url
+          description
+        }
+        locale
+      }
+    }
+  }
+`;

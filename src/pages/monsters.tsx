@@ -8,24 +8,30 @@ import { Wrapper } from '../components/UI';
 
 const MonsterPage = ({ data }) => {
   const intl = useIntl();
+  const localizedEntries = data.allContentstackBlogPost.nodes
+    .filter(node => intl.locale === node.locale.split('-ca')[0]);
+  const localizedContent = data.allContentstackMonsterPage.nodes
+    .filter(node => intl.locale === node.locale.split('-ca')[0]);
 
   return (
     <Layout>
       <SEO
-        title={data.contentstackMonsterPage.seo.page_title}
-        description={data.contentstackMonsterPage.seo.page_description}
+        title={localizedContent[0]?.seo?.page_title}
+        description={localizedContent[0]?.seo?.page_description}
       />
       <Wrapper>
         <h1>
-          {data.contentstackMonsterPage.title}
+          {localizedContent[0].title}
         </h1>
-        <ReactMarkdown>{data.contentstackMonsterPage.page_intro}</ReactMarkdown>
+        <ReactMarkdown>{localizedContent[0].page_intro}</ReactMarkdown>
         <h2>
           <FormattedMessage id="all_monsters" />
         </h2>
         <ul>
-          {data.allContentstackBlogPost.nodes.map(node => (
-            <li key={node.id}><Link to={`/monster${node.url}`}>{node.title}</Link></li>
+          {localizedEntries.map(entry => (
+            <li key={entry.id}>
+              <Link to={`/monster${entry.url}`}>{entry.title}</Link>
+            </li>
           ))}
         </ul>
       </Wrapper>
@@ -37,19 +43,23 @@ export default MonsterPage;
 
 export const data = graphql`
   query monsterpage {
-    contentstackMonsterPage {
-      title
-      seo {
-        page_title
-        page_description
+    allContentstackMonsterPage {
+      nodes {
+        title
+        locale
+        page_intro
+        seo {
+          page_title
+          page_description
+        }
       }
-      page_intro
     }
     allContentstackBlogPost {
         nodes {
           title
           url
           id
+          locale
         }
     }
   }

@@ -1,3 +1,6 @@
 {
-  "all_monsters": "All Monsters:"
+  "all_monsters": "All Monsters:", 
+  "monster_rating": "Monster Rating: ",
+  "posted_by": "Posted by: ",
+  "author_profile": "Author Profile"
 }

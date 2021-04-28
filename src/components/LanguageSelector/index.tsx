@@ -26,7 +26,7 @@ export const LanguageSelector = () => {
               display: language === currentLang ? "none" : "block",
             }}
           >
-            {language.toUpperCase()}
+            Change to {language.toUpperCase()}
           </StyledButton>
         ))
       }

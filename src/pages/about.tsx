@@ -1,22 +1,27 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import { useIntl } from 'gatsby-plugin-intl';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { Wrapper } from '../components/UI';
 
 const AboutPage = ({ data }) => {
+  const intl = useIntl();
+  const localizedContent = data.allContentstackAbout.nodes
+    .filter(node => intl.locale === node.locale.split('-ca')[0]);
+
   return (
     <Layout>
       <SEO
-        title={data.contentstackAbout.seo.page_title}
-        description={data.contentstackAbout.seo.page_description}
+        title={localizedContent[0]?.seo?.page_title}
+        description={localizedContent[0]?.seo?.page_description}
       />
       <Wrapper>
         <h1>
-          {data.contentstackAbout.title}
+          {localizedContent[0]?.title}
         </h1>
         <p>
-          {data.contentstackAbout.about_us_text}
+          {localizedContent[0]?.about_us_text}
         </p>
       </Wrapper>
     </Layout>
@@ -27,13 +32,16 @@ export default AboutPage;
 
 export const data = graphql`
   query aboutpage {
-    contentstackAbout {
-      title
-      seo {
-        page_title
-        page_description
+    allContentstackAbout {
+      nodes {
+        title
+        locale
+        seo {
+          page_title
+          page_description
+        }
+        about_us_text
       }
-      about_us_text
     }
   }
 `;
