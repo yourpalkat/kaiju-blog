@@ -24,7 +24,7 @@ exports.createPages = async ({
     }
   `);
 
-  result.data?.allContentstackBlogPost.nodes
+  result.data.allContentstackBlogPost.nodes
     .filter(node => node.locale === 'en-ca')
     .forEach(node => {
       console.log(`Creating page at /monster${node.url}`);
@@ -39,7 +39,7 @@ exports.createPages = async ({
       });
     });
 
-  result.data?.allContentstackAuthor.nodes
+  result.data.allContentstackAuthor.nodes
     .filter(node => node.locale === 'en-ca')
     .forEach(node => {
       console.log(`Creating page at /author${node.url}`);
