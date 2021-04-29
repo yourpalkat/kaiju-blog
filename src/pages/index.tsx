@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { useIntl } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../components/Layout';
@@ -9,6 +8,7 @@ import SEO from '../components/SEO';
 import { Wrapper } from '../components/UI';
 import Carousel from '../components/Carousel';
 import Feature from '../components/Feature';
+import { getLocalizedContent } from '../utilities/getLocalizedContent';
 
 const HeroImage = styled.div`
   width: 100%;
@@ -19,35 +19,33 @@ const HeroImage = styled.div`
 `;
 
 const HomePage = ({ data }) => {
-  const intl = useIntl();
-  const localizedContent = data.allContentstackHomepage.nodes
-    .filter(node => intl.locale === node.locale.split('-ca')[0]);
-  const heroImageSource = getImage(localizedContent[0].hero_image.localAsset);
+  const content = getLocalizedContent(data.allContentstackHomepage.nodes);
+  const heroImageSource = getImage(content.hero_image.localAsset);
 
   return (
     <Layout>
       <SEO
-        title={localizedContent[0].seo.page_title}
-        description={localizedContent[0].seo.page_description}
+        title={content.seo.page_title}
+        description={content.seo.page_description}
       />
       <Wrapper>
         <HeroImage>
           <GatsbyImage
             image={heroImageSource}
-            alt={localizedContent[0].hero_image.description}
+            alt={content.hero_image.description}
           />
         </HeroImage>
         <h1>
-          {localizedContent[0].title}
+          {content.title}
         </h1>
         <ReactMarkdown>
-          {localizedContent[0].intro_text}
+          {content.intro_text}
         </ReactMarkdown>
-        {localizedContent[0]?.modular_blocks[0]?.image_carousel && 
-          <Carousel content={localizedContent[0].modular_blocks[0].image_carousel} />
+        {content?.modular_blocks[0]?.image_carousel && 
+          <Carousel content={content.modular_blocks[0].image_carousel} />
         }
-        {localizedContent[0]?.modular_blocks[0]?.featured_monster && 
-          <Feature content={localizedContent[0].modular_blocks[0].featured_monster.feature[0]} />
+        {content?.modular_blocks[0]?.featured_monster && 
+          <Feature content={content.modular_blocks[0].featured_monster.feature[0]} />
         }
       </Wrapper>
     </Layout>

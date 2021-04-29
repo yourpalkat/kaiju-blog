@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { useIntl, FormattedMessage } from 'gatsby-plugin-intl';
+import { FormattedMessage } from 'gatsby-plugin-intl';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { Wrapper } from '../components/UI';
+import { getLocalizedContent } from '../utilities/getLocalizedContent';
 
 const Author = ({ data }) => {
-  const intl = useIntl();
-  const content = data.allContentstackAuthor.nodes
-    .filter(node => intl.locale === node.locale.split('-ca')[0])[0];
+  const content = getLocalizedContent(data.allContentstackAuthor.nodes);
   const imageSource = getImage(content.photo.localAsset);
 
   return (
