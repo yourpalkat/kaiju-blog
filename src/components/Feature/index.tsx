@@ -2,22 +2,34 @@ import React from 'react';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Link, FormattedMessage } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
+import { colors } from '../../styles/colors';
 
 const FeatureSection = styled.section`
-  padding: 20px 0;
-  margin: 40px 0;
-  border-top: solid grey 2px;
-  border-bottom: solid grey 2px;
+  padding: 36px 24px;
+  margin: 64px 0;
+  background-color: ${colors.backgroundDark};
+  border-radius: 12px;
+
+  h2, h3 {
+    color: ${colors.secondary};
+  }
 `;
 
 const Flex = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 2rem;
 
   .imageContainer {
     flex-basis: 35%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid ${colors.secondary};
+  }
+
+  h3 {
+    margin-bottom: 24px;
   }
 `;
 
@@ -36,7 +48,7 @@ const Feature = ({ content }) => {
         </div>
         <div>
           <h3>{content.title}!</h3>
-          <p><Link to={`/monster${content.url}`}>Read more</Link></p>
+          <p><Link to={`/monster${content.url}`}>Read more...</Link></p>
         </div>
       </Flex>
     </FeatureSection>

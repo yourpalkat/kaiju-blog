@@ -52,6 +52,15 @@ module.exports = {
         // option to redirect to `/en` when connecting `/`
         redirect: true,
       }
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          'lato\:300,3000i,400'
+        ],
+        display: `swap`
+      }
     }
   ],
 };

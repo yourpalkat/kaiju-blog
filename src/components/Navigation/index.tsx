@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { Link } from 'gatsby-plugin-intl';
 import { LanguageSelector } from '../LanguageSelector';
 import styled from 'styled-components';
+import { colors } from '../../styles/colors';
 
 const FlexContainer = styled.ul`
   display: flex;
@@ -12,12 +13,15 @@ const FlexContainer = styled.ul`
 
   a {
     text-decoration-color: transparent;
+    font-size: var(--step-0);
+    font-weight: 400;
     padding: 10px 0;
-    margin-left: 20px;
+    margin-left: 24px;
     transition: all 0.3s ease;
 
     &:hover,
     &:focus {
+      color: ${colors.secondary};
       text-decoration-color: inherit;
     }
   }

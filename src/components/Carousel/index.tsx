@@ -1,24 +1,30 @@
 import React from 'react';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { FormattedMessage } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
+import { colors } from '../../styles/colors';
 
 const CarouselSection = styled.section`
-  padding: 20px 0;
-  margin: 40px 0;
-  border-top: solid grey 2px;
-  border-bottom: solid grey 2px;
+  padding: 36px 24px;
+  margin: 64px 0;
+  background-color: ${colors.backgroundDark};
+  border-radius: 12px;
+
+  h2, h3 {
+    color: ${colors.secondary};
+  }
 `;
 
 const ImageContainer = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.6rem;
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
 
   div {
     flex-basis: 30%;
+    border-radius: 12px;
 
     img {
       max-width: 100%;
@@ -33,11 +39,10 @@ const Carousel = ({ content }) => {
       <h2><FormattedMessage id="image_gallery" /></h2>
       <ImageContainer>
         {content.image.map((featuredImage) => {
-          const imageSource = getImage(featuredImage.localAssset)
           return (
             <div key={featuredImage.id}>
               <GatsbyImage
-                image={imageSource}
+                image={featuredImage.localAsset.childImageSharp.gatsbyImageData}
                 alt={featuredImage.description}
               />
             </div>

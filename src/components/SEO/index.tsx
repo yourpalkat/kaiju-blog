@@ -1,5 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import { useIntl } from 'gatsby-plugin-intl';
 import { useStaticQuery, graphql } from 'gatsby';
 
 type SEOProps = {
@@ -22,6 +23,7 @@ const SEO: React.FC<SEOProps> = ({
   meta,
   title,
 } = SEODefaultProps) => {
+  const intl = useIntl();
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -41,7 +43,7 @@ const SEO: React.FC<SEOProps> = ({
   return (
     <Helmet
       htmlAttributes={{
-        lang,
+        lang: intl.locale || lang
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}

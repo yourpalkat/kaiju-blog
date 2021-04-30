@@ -9,19 +9,42 @@ import { Wrapper } from '../components/UI';
 import Carousel from '../components/Carousel';
 import Feature from '../components/Feature';
 import { getLocalizedContent } from '../utilities/getLocalizedContent';
+import { colors } from '../styles/colors';
 
 const HeroImage = styled.div`
   width: 100%;
+  margin-bottom: 36px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  overflow: hidden;
+  position: relative;
+
+  h1 {
+    color: ${colors.secondary};
+    position: absolute;
+    top: 64px;
+    left: 24px;
+    text-shadow: #000000AA -2px 2px;
+    font-size: var(--step-5);
+    font-weight: 800;
+  }
+
   img {
     max-width: 100%;
     height: auto;
   }
 `;
 
+const IntroContent = styled.div`
+  p {
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+`;
+
 const HomePage = ({ data }) => {
   const content = getLocalizedContent(data.allContentstackHomepage.nodes);
   const heroImageSource = getImage(content.hero_image.localAsset);
-
   return (
     <Layout>
       <SEO
@@ -34,19 +57,23 @@ const HomePage = ({ data }) => {
             image={heroImageSource}
             alt={content.hero_image.description}
           />
+          <h1>
+            {content.title}
+          </h1>
         </HeroImage>
-        <h1>
-          {content.title}
-        </h1>
-        <ReactMarkdown>
-          {content.intro_text}
-        </ReactMarkdown>
-        {content?.modular_blocks[0]?.image_carousel && 
-          <Carousel content={content.modular_blocks[0].image_carousel} />
-        }
-        {content?.modular_blocks[0]?.featured_monster && 
-          <Feature content={content.modular_blocks[0].featured_monster.feature[0]} />
-        }
+
+        <IntroContent>
+          <ReactMarkdown>
+            {content.intro_text}
+          </ReactMarkdown>
+        </IntroContent>
+
+        {content?.modular_blocks?.map((block) => (
+          block.featured_monster 
+            ? <Feature content={block.featured_monster.feature[0]} />
+            : <Carousel content={block.image_carousel} />
+          )
+        )}
       </Wrapper>
     </Layout>
   );

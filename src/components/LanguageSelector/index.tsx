@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { changeLocale, useIntl, IntlContextConsumer } from 'gatsby-plugin-intl';
+import { colors } from '../../styles/colors';
 
 const StyledButton = styled.button`
-  border: none;
-  background-color: transparent;
-  padding: 0;
+  border: 1px solid ${colors.backgroundDark};
+  background-color: ${colors.backgroundDark};
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: var(--step--1);
+  color: ${colors.secondary};
+  cursor: pointer;
+  opacity: 0.75;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+    border: 1px solid ${colors.secondary};
+  }
 `;
 
 export const LanguageSelector = () => {

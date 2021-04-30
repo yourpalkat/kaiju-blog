@@ -2,10 +2,14 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import { Wrapper, FlexContainer } from '../UI';
+import { colors } from '../../styles/colors';
 
 const StyledFooter = styled.footer`
-  padding: 20px 0;
-  border-top: solid grey 2px;
+  padding: 48px 0;
+  background-color: ${colors.backgroundDark};
+  p, li, a {
+    font-size: var(--step-0);
+  }
 `;
 
 const SocialLinks = styled.ul`
