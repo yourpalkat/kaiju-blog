@@ -21,7 +21,7 @@ const IntroWrapper = styled.div`
 `;
 
 const AboutPage = ({ data }) => {
-  const content = getLocalizedContent(data.allContentstackAbout.nodes);
+  const content = getLocalizedContent(data?.allContentstackAbout?.nodes);
 
   return (
     <Layout>

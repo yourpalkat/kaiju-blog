@@ -35,13 +35,13 @@ const Footer = () => {
     }
   `);
 
-  const content = data.contentstackFooter;
+  const content = data?.contentstackFooter;
 
   return (
     <StyledFooter>
       <Wrapper>
         <FlexContainer>
-          <p>{content.copyright}</p>
+          <p>{content?.copyright}</p>
           <SocialLinks>
             {content?.social_links?.link?.map((socialLink) => 
               <li key={socialLink.title}><a href={socialLink.href}>{socialLink.title}</a></li>

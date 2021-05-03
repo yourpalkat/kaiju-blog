@@ -38,8 +38,8 @@ const ListWrapper = styled.div`
 `;
 
 const MonsterPage = ({ data }) => {
-  const localizedEntries = getLocalizedContent(data.allContentstackBlogPost.nodes, true);
-  const content = getLocalizedContent(data.allContentstackMonsterPage.nodes);
+  const localizedEntries = getLocalizedContent(data?.allContentstackBlogPost?.nodes, true);
+  const content = getLocalizedContent(data?.allContentstackMonsterPage?.nodes);
 
   return (
     <Layout>

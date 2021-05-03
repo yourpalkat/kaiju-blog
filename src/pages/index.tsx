@@ -43,34 +43,36 @@ const IntroContent = styled.div`
 `;
 
 const HomePage = ({ data }) => {
-  const content = getLocalizedContent(data.allContentstackHomepage.nodes);
-  const heroImageSource = getImage(content.hero_image.localAsset);
+  const content = getLocalizedContent(data?.allContentstackHomepage?.nodes);
+  const heroImageSource = getImage(content?.hero_image?.localAsset);
   return (
     <Layout>
       <SEO
-        title={content.seo.page_title}
-        description={content.seo.page_description}
+        title={content?.seo?.page_title}
+        description={content?.seo?.page_description}
       />
       <Wrapper>
         <HeroImage>
-          <GatsbyImage
-            image={heroImageSource}
-            alt={content.hero_image.description}
-          />
+          {heroImageSource && (
+            <GatsbyImage
+              image={heroImageSource}
+              alt={content.hero_image.description}
+            />
+          )}
           <h1>
-            {content.title}
+            {content?.title}
           </h1>
         </HeroImage>
 
         <IntroContent>
           <ReactMarkdown>
-            {content.intro_text}
+            {content?.intro_text}
           </ReactMarkdown>
         </IntroContent>
 
         {content?.modular_blocks?.map((block) => (
           block.featured_monster 
-            ? <Feature content={block.featured_monster.feature[0]} />
+            ? <Feature content={block.featured_monster?.feature[0]} />
             : <Carousel content={block.image_carousel} />
           )
         )}
