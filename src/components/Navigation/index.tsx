@@ -49,13 +49,13 @@ const Navigation = () => {
   }
 `);
 
-const navLinks = data?.contentstackHeader?.nav?.page_link;
+const navLinks = data?.contentstackHeader?.nav?.page_link || [];
 
   return (
     <nav>
       <FlexContainer>
         <li><LanguageSelector /></li>
-        {navLinks.length && navLinks.map((navLink) => 
+        {navLinks?.length && navLinks.map((navLink) => 
           <li key={navLink.id}><Link to={navLink.url}>{navLink.title}</Link></li>
         )}
       </FlexContainer>
