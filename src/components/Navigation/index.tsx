@@ -49,7 +49,7 @@ const Navigation = () => {
   }
 `);
 
-const navLinks = data.contentstackHeader.nav.page_link;
+const navLinks = data?.contentstackHeader?.nav?.page_link;
 
   return (
     <nav>

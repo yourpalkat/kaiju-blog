@@ -38,13 +38,15 @@ const Carousel = ({ content }) => {
     <CarouselSection>
       <h2><FormattedMessage id="image_gallery" /></h2>
       <ImageContainer>
-        {content.image.map((featuredImage) => {
+        {content?.image?.map((featuredImage) => {
           return (
             <div key={featuredImage.id}>
-              <GatsbyImage
-                image={featuredImage.localAsset.childImageSharp.gatsbyImageData}
-                alt={featuredImage.description}
-              />
+              {featuredImage?.localAsset?.childImageSharp?.gatsbyImageData && (
+                <GatsbyImage
+                  image={featuredImage.localAsset.childImageSharp.gatsbyImageData}
+                  alt={featuredImage.description || ''}
+                />
+              )}
             </div>
           )}
         )}

@@ -43,7 +43,7 @@ const Footer = () => {
         <FlexContainer>
           <p>{content.copyright}</p>
           <SocialLinks>
-            {content.social_links.link.map((socialLink) => 
+            {content?.social_links?.link?.map((socialLink) => 
               <li key={socialLink.title}><a href={socialLink.href}>{socialLink.title}</a></li>
             )}
           </SocialLinks>

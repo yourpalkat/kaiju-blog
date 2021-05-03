@@ -41,10 +41,12 @@ const Feature = ({ content }) => {
       <h2><FormattedMessage id="featured_monster" /></h2>
       <Flex>
         <div className="imageContainer">
-          <GatsbyImage
-            image={imageSource}
-            alt={content.featured_image.description}
-          />
+          {imageSource && (
+            <GatsbyImage
+              image={imageSource}
+              alt={content?.featured_image?.description || content.title}
+            />
+          )}
         </div>
         <div>
           <h3>{content.title}!</h3>
