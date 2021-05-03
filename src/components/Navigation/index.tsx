@@ -55,7 +55,7 @@ const navLinks = data?.contentstackHeader?.nav?.page_link;
     <nav>
       <FlexContainer>
         <li><LanguageSelector /></li>
-        {navLinks.map((navLink) => 
+        {navLinks.length && navLinks.map((navLink) => 
           <li key={navLink.id}><Link to={navLink.url}>{navLink.title}</Link></li>
         )}
       </FlexContainer>
