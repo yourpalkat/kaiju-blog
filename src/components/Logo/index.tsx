@@ -27,7 +27,10 @@ const Logo = () => {
   return (
     <LogoWrapper>
       <Link to="/">
-        <img src={data.contentstackHeader.logo.url} alt={data.contentstackHeader.logo.description} />
+        <img 
+          src={data?.contentstackHeader?.logo?.url}
+          alt={data?.contentstackHeader?.logo?.description || 'Kaiju Blog logo'}
+        />
       </Link>
     </LogoWrapper>
   );
