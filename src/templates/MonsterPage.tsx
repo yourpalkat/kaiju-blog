@@ -78,10 +78,12 @@ const Monster = ({ data }) => {
             {content?.title}
           </h1>
           <ImageContainer>
-            <GatsbyImage
-              image={imageSource}
-              alt={content?.featured_image?.description}
-            />
+            {imageSource && (
+              <GatsbyImage
+                image={imageSource}
+                alt={content?.featured_image?.description || content?.title}
+              />
+            )}
           </ImageContainer>
         </IntroWrapper>
         <Rating><FormattedMessage id="monster_rating" /> {content?.rating} / 5</Rating>

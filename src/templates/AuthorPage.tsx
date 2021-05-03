@@ -71,10 +71,12 @@ const Author = ({ data }) => {
         </IntroWrapper>
         <AuthorCard>
           <ImageContainer>
-            <GatsbyImage
-              image={imageSource}
-              alt={content.photo.description}
-            />
+            {imageSource && (
+              <GatsbyImage
+                image={imageSource}
+                alt={content?.photo?.description || 'Author photo'}
+              />
+            )}
           </ImageContainer>
           <div>
             <h2>{content?.title}</h2>
