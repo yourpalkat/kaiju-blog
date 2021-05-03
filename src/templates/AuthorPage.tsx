@@ -56,8 +56,8 @@ const ImageContainer = styled.div`
 `;
 
 const Author = ({ data }) => {
-  const content = getLocalizedContent(data.allContentstackAuthor.nodes);
-  const imageSource = getImage(content.photo.localAsset);
+  const content = getLocalizedContent(data?.allContentstackAuthor?.nodes);
+  const imageSource = getImage(content?.photo?.localAsset);
 
   return (
     <Layout>

@@ -57,14 +57,14 @@ const PostedBy = styled.p`
 
 const Monster = ({ data }) => {
   const intl = useIntl();
-  const content = getLocalizedContent(data.allContentstackBlogPost.nodes);
+  const content = getLocalizedContent(data?.allContentstackBlogPost?.nodes);
   const datePosted = new Date(content?.date_posted).toLocaleDateString(intl.locale, { 
     weekday: 'long', 
     month: 'long', 
     year: 'numeric', 
     day: 'numeric' 
   }) || '';
-  const imageSource = getImage(content.featured_image.localAsset);
+  const imageSource = getImage(content?.featured_image?.localAsset);
 
   return (
     <Layout>
