@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
@@ -55,7 +55,7 @@ const PostedBy = styled.p`
   }
 `;
 
-const Monster = ({ data }) => {
+const Monster = ({ data }: PageProps<GatsbyTypes.monsterInfoQuery>) => {
   const intl = useIntl();
   const content = getLocalizedContent(data?.allContentstackBlogPost?.nodes);
   const datePosted = new Date(content?.date_posted).toLocaleDateString(intl.locale, { 

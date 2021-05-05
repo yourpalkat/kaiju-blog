@@ -33,12 +33,18 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Carousel = ({ content }) => {
+type CarouselProps = {
+  content: {
+    image: any[]
+  }
+};
+
+const Carousel: React.FC<CarouselProps> = ({ content }) => {
   return (
     <CarouselSection>
       <h2><FormattedMessage id="image_gallery" /></h2>
       <ImageContainer>
-        {content?.image?.map((featuredImage) => {
+        {content?.image?.map((featuredImage: any) => {
           return (
             <div key={featuredImage.id}>
               {featuredImage?.localAsset?.childImageSharp?.gatsbyImageData && (

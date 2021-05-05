@@ -21,7 +21,7 @@ const SocialLinks = styled.ul`
 `;
 
 const Footer = () => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<GatsbyTypes.footercontentQuery>(graphql`
     query footercontent {
       contentstackFooter {
         copyright
@@ -43,7 +43,7 @@ const Footer = () => {
         <FlexContainer>
           <p>{content?.copyright}</p>
           <SocialLinks>
-            {content?.social_links?.link?.map((socialLink) => 
+            {content?.social_links?.link?.map((socialLink: any) => 
               <li key={socialLink.title}><a href={socialLink.href}>{socialLink.title}</a></li>
             )}
           </SocialLinks>
