@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import styled from 'styled-components'
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
@@ -20,7 +20,7 @@ const IntroWrapper = styled.div`
   }
 `;
 
-const AboutPage = ({ data }) => {
+const AboutPage = ({ data }: PageProps<GatsbyTypes.aboutpageQuery>) => {
   const content = getLocalizedContent(data?.allContentstackAbout?.nodes);
 
   return (

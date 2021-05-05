@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
@@ -42,7 +42,7 @@ const IntroContent = styled.div`
   }
 `;
 
-const HomePage = ({ data }) => {
+const HomePage = ({ data }: PageProps<GatsbyTypes.HomepageQuery>) => {
   const content = getLocalizedContent(data?.allContentstackHomepage?.nodes);
   const heroImageSource = getImage(content?.hero_image?.localAsset);
   return (
@@ -70,7 +70,7 @@ const HomePage = ({ data }) => {
           </ReactMarkdown>
         </IntroContent>
 
-        {content?.modular_blocks?.map((block) => (
+        {content?.modular_blocks?.map((block: any) => (
           block.featured_monster 
             ? <Feature content={block.featured_monster?.feature[0]} />
             : <Carousel content={block.image_carousel} />
@@ -84,7 +84,7 @@ const HomePage = ({ data }) => {
 export default HomePage;
 
 export const data = graphql`
-  query homepage {
+  query Homepage {
     allContentstackHomepage {
       nodes {
         title

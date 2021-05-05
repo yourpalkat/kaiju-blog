@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import { Link, FormattedMessage } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
@@ -37,7 +37,7 @@ const ListWrapper = styled.div`
   }
 `;
 
-const MonsterPage = ({ data }) => {
+const MonsterPage = ({ data }: PageProps<GatsbyTypes.monsterpageQuery>) => {
   const localizedEntries = getLocalizedContent(data?.allContentstackBlogPost?.nodes, true);
   const content = getLocalizedContent(data?.allContentstackMonsterPage?.nodes);
 
@@ -59,7 +59,7 @@ const MonsterPage = ({ data }) => {
             <FormattedMessage id="all_monsters" />
           </h2>
           <ul>
-            {localizedEntries.map(entry => (
+            {localizedEntries.map((entry: any) => (
               <li key={entry.id}>
                 <Link to={`/monster${entry.url}`}>{entry.title}</Link>
               </li>

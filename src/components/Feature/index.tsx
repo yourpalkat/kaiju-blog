@@ -33,7 +33,18 @@ const Flex = styled.div`
   }
 `;
 
-const Feature = ({ content }) => { 
+type FeatureProps = {
+  content: {
+    featured_image: {
+      description: string;
+      localAsset: any;
+    };
+    title: string;
+    url: string;
+  }
+};
+
+const Feature: React.FC<FeatureProps> = ({ content }) => { 
   const imageSource = getImage(content.featured_image.localAsset);
 
   return (

@@ -13,7 +13,7 @@ const LogoWrapper = styled.div`
 `;
 
 const Logo = () => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<GatsbyTypes.logoQuery>(graphql`
     query logo {
       contentstackHeader {
         logo {

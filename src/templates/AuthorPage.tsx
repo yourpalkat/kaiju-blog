@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { FormattedMessage } from 'gatsby-plugin-intl';
@@ -55,7 +55,7 @@ const ImageContainer = styled.div`
   align-items: center;
 `;
 
-const Author = ({ data }) => {
+const Author = ({ data }: PageProps<GatsbyTypes.authorInfoQuery>) => {
   const content = getLocalizedContent(data?.allContentstackAuthor?.nodes);
   const imageSource = getImage(content?.photo?.localAsset);
 

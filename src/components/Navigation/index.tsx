@@ -27,8 +27,14 @@ const FlexContainer = styled.ul`
   }
 `;
 
+type NavLinkObject = {
+  id: string;
+  title: string;
+  url: string;
+};
+
 const Navigation = () => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<GatsbyTypes.headernavQuery>(graphql`
   query headernav {
     contentstackHeader {
       nav {
@@ -55,7 +61,7 @@ const navLinks = data?.contentstackHeader?.nav?.page_link || [];
     <nav>
       <FlexContainer>
         <li><LanguageSelector /></li>
-        {navLinks?.length && navLinks.map((navLink) => 
+        {navLinks?.length && navLinks.map((navLink: NavLinkObject) => 
           <li key={navLink.id}><Link to={navLink.url}>{navLink.title}</Link></li>
         )}
       </FlexContainer>
